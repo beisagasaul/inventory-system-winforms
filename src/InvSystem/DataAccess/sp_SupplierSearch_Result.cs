@@ -10,23 +10,17 @@
 namespace DataAccess
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Role
+    public partial class sp_SupplierSearch_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
-        {
-            this.UserAccount = new HashSet<UserAccount>();
-        }
-    
         public int id { get; set; }
-        public string name { get; set; }
+        public long nit { get; set; }
+        public string businessName { get; set; }
+        public string address { get; set; }
+        public Nullable<long> phone { get; set; }
+        public string representative { get; set; }
         public string createdBy { get; set; }
         public System.DateTime createdAt { get; set; }
         public int status { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserAccount> UserAccount { get; set; }
     }
 }

@@ -10,14 +10,14 @@
 namespace DataAccess
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class sp_UserAccountSearch_Result
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int id { get; set; }
+        public string username { get; set; }
+        public string fullName { get; set; }
+        public string identityCard { get; set; }
+        public int status { get; set; }
+        public System.DateTime createdAt { get; set; }
     }
 }

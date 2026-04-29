@@ -18,6 +18,7 @@ namespace DataAccess
         public UserAccount()
         {
             this.Sale = new HashSet<Sale>();
+            this.Role = new HashSet<Role>();
         }
     
         public int id { get; set; }
@@ -31,5 +32,7 @@ namespace DataAccess
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale> Sale { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Role> Role { get; set; }
     }
 }

@@ -15,10 +15,10 @@ namespace DataAccess
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class inventory_dbEntities2 : DbContext
+    public partial class INVENTORYDBEntities : DbContext
     {
-        public inventory_dbEntities2()
-            : base("name=inventory_dbEntities2")
+        public INVENTORYDBEntities()
+            : base("name=INVENTORYDBEntities")
         {
         }
     
@@ -37,22 +37,43 @@ namespace DataAccess
         public virtual DbSet<SaleDetail> SaleDetail { get; set; }
         public virtual DbSet<StockMovement> StockMovement { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UnitOfMeasure> UnitOfMeasure { get; set; }
         public virtual DbSet<UserAccount> UserAccount { get; set; }
     
-        public virtual int sp_ProductSearch(string parametro)
+        public virtual ObjectResult<sp_ProductSearch_Result> sp_ProductSearch(string parametro)
         {
             var parametroParameter = parametro != null ?
                 new ObjectParameter("parametro", parametro) :
                 new ObjectParameter("parametro", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ProductSearch", parametroParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ProductSearch_Result>("sp_ProductSearch", parametroParameter);
         }
     
-        public virtual int sp_TestSimple()
+        public virtual ObjectResult<sp_CustomerSearch_Result> sp_CustomerSearch(string parametro)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_TestSimple");
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CustomerSearch_Result>("sp_CustomerSearch", parametroParameter);
+        }
+    
+        public virtual ObjectResult<sp_SupplierSearch_Result> sp_SupplierSearch(string parametro)
+        {
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SupplierSearch_Result>("sp_SupplierSearch", parametroParameter);
+        }
+    
+        public virtual ObjectResult<sp_UserAccountSearch_Result> sp_UserAccountSearch(string parametro)
+        {
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_UserAccountSearch_Result>("sp_UserAccountSearch", parametroParameter);
         }
     }
 }
