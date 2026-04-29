@@ -19,6 +19,7 @@ namespace DataAccess
         {
             this.PurchaseDetail = new HashSet<PurchaseDetail>();
             this.SaleDetail = new HashSet<SaleDetail>();
+            this.StockMovement = new HashSet<StockMovement>();
         }
     
         public int id { get; set; }
@@ -31,10 +32,12 @@ namespace DataAccess
         public System.DateTime createdAt { get; set; }
         public int status { get; set; }
     
-        public virtual UnitOfMeasure UnitOfMeasure { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseDetail> PurchaseDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaleDetail> SaleDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StockMovement> StockMovement { get; set; }
+        public virtual UnitOfMeasure UnitOfMeasure { get; set; }
     }
 }

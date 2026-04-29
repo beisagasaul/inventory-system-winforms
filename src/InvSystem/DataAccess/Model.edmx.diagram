@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="318669b087ec4681b27a0fed75dac624" Name="Diagram1">
+        <EntityTypeShape EntityType="inventory_dbModel.Customer" Width="1.5" PointX="3.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.Employee" Width="1.5" PointX="1.5" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.Product" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.Purchase" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.PurchaseDetail" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.Role" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.Sale" Width="1.5" PointX="6" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.SaleDetail" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.StockMovement" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.Supplier" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.UnitOfMeasure" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventory_dbModel.UserAccount" Width="1.5" PointX="3.75" PointY="19.5" IsExpanded="true" />
+        <AssociationConnector Association="inventory_dbModel.FK__Sale__customerId__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="inventory_dbModel.fk_UserAccount_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="inventory_dbModel.FK__PurchaseD__produ__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="inventory_dbModel.FK__SaleDetai__produ__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="inventory_dbModel.FK__StockMove__produ__0C85DE4D" ManuallyRouted="false" />
+        <AssociationConnector Association="inventory_dbModel.fk_Product_UnitOfMeasure" ManuallyRouted="false" />
+        <AssociationConnector Association="inventory_dbModel.FK__Purchase__suppli__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="inventory_dbModel.FK__PurchaseD__purch__787EE5A0" ManuallyRouted="false" />
+        <AssociationConnector Association="inventory_dbModel.FK__Sale__userId__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventory_dbModel.FK__SaleDetai__saleI__07C12930" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

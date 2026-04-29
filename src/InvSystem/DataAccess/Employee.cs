@@ -27,7 +27,7 @@ namespace DataAccess
         public string secondLastName { get; set; }
         public System.DateTime birthDate { get; set; }
         public string address { get; set; }
-        public long phone { get; set; }
+        public Nullable<long> phone { get; set; }
         public string position { get; set; }
         public string createdBy { get; set; }
         public System.DateTime createdAt { get; set; }

@@ -13,10 +13,10 @@ namespace DataAccess
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class inventory_dbEntities : DbContext
+    public partial class inventory_dbEntities1 : DbContext
     {
-        public inventory_dbEntities()
-            : base("name=inventory_dbEntities")
+        public inventory_dbEntities1()
+            : base("name=inventory_dbEntities1")
         {
         }
     
@@ -30,9 +30,12 @@ namespace DataAccess
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Purchase> Purchase { get; set; }
         public virtual DbSet<PurchaseDetail> PurchaseDetail { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Sale> Sale { get; set; }
         public virtual DbSet<SaleDetail> SaleDetail { get; set; }
+        public virtual DbSet<StockMovement> StockMovement { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UnitOfMeasure> UnitOfMeasure { get; set; }
         public virtual DbSet<UserAccount> UserAccount { get; set; }
     }
