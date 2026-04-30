@@ -1,20 +1,19 @@
-CREATE DATABASE inventory_db
+CREATE DATABASE INVENTORYDB;
 GO
-
-USE inventory_db
+USE master
 GO
+CREATE LOGIN usrinventory WITH PASSWORD = '123456',
+  DEFAULT_DATABASE = Inventorydb,
+  CHECK_EXPIRATION = OFF,
+  CHECK_POLICY = ON
 
-CREATE LOGIN inventory_user WITH PASSWORD = 'Str0ng@Pass2026',
-DEFAULT_DATABASE = inventory_db,
-CHECK_POLICY = ON,
-CHECK_EXPIRATION = OFF
+  go 
+  USE Inventorydb
+  go
 GO
-
-CREATE USER inventory_user FOR LOGIN inventory_user;
+CREATE USER usrinventory FOR LOGIN usrinventory
 GO
-
-ALTER ROLE db_datareader ADD MEMBER inventory_user;
-ALTER ROLE db_datawriter ADD MEMBER inventory_user;
+ALTER ROLE db_owner ADD MEMBER usrinventory
 GO
 
 
@@ -27,6 +26,7 @@ CREATE TABLE UnitOfMeasure (
   status INT NOT NULL DEFAULT 1       -- estado  
 );
 
+select * from UnitOfMeasure
 -- TABLE: PRODUCT
 CREATE TABLE Product (
   id INT IDENTITY(1,1) PRIMARY KEY,          -- id
@@ -45,7 +45,7 @@ CREATE TABLE Product (
   CONSTRAINT fk_Product_UnitOfMeasure 
   FOREIGN KEY (unitOfMeasureId) REFERENCES UnitOfMeasure(id)
 );
-
+select * from Product
 -- TABLE: SUPPLIER -PROVEEDOR
 CREATE TABLE Supplier (
   id INT IDENTITY(1,1) PRIMARY KEY,          -- id
@@ -60,6 +60,8 @@ CREATE TABLE Supplier (
   createdAt DATETIME NOT NULL DEFAULT GETDATE(),  -- fechaRegistro
   status INT NOT NULL DEFAULT 1             -- estado
 );
+
+select * from Supplier
 
 -- TABLE: EMPLOYEE
 CREATE TABLE Employee (
@@ -80,6 +82,9 @@ CREATE TABLE Employee (
   status INT NOT NULL DEFAULT 1             -- estado
 );
 
+select *from Employee
+
+
 -- TABLE: USER ACCOUNT
 CREATE TABLE UserAccount (
   id INT IDENTITY(1,1) PRIMARY KEY,          -- id
@@ -96,6 +101,9 @@ CREATE TABLE UserAccount (
   FOREIGN KEY (employeeId) REFERENCES Employee(id)
 );
 
+
+select *from UserAccount
+
 -- TABLE: ROLE 
 CREATE TABLE Role (
   id INT IDENTITY(1,1) PRIMARY KEY,          -- id
@@ -104,6 +112,8 @@ CREATE TABLE Role (
   createdAt DATETIME NOT NULL DEFAULT GETDATE(), -- fechaRegistro
   status INT NOT NULL DEFAULT 1              -- estado
 );
+use INVENTORYDB
+select * from role
 
 -- TABLE: USER ROLE (NUEVO)
 CREATE TABLE UserRole (
@@ -128,6 +138,8 @@ CREATE TABLE Customer (
   status INT NOT NULL DEFAULT 1             -- estado
 );
 
+
+
 -- TABLE: PURCHASE --COMPRA
 CREATE TABLE Purchase (
   id BIGINT IDENTITY(1,1) PRIMARY KEY,       -- id
@@ -145,6 +157,7 @@ CREATE TABLE Purchase (
   FOREIGN KEY (supplierId) REFERENCES Supplier(id)
 );
 
+
 -- TABLE: PURCHASE DETAIL
 CREATE TABLE PurchaseDetail (
   id BIGINT IDENTITY(1,1) PRIMARY KEY,     -- id
@@ -161,6 +174,7 @@ CREATE TABLE PurchaseDetail (
   FOREIGN KEY (purchaseId) REFERENCES Purchase(id),
   FOREIGN KEY (productId) REFERENCES Product(id)
 );
+
 
 -- TABLE: SALE
 CREATE TABLE Sale (
@@ -197,6 +211,7 @@ CREATE TABLE SaleDetail (
   FOREIGN KEY (productId) REFERENCES Product(id)
 );
 
+
 -- TABLE: STOCK MOVEMENT (IMPORTANTE)
 CREATE TABLE StockMovement (
   id BIGINT IDENTITY(1,1) PRIMARY KEY,   -- id
@@ -212,3 +227,130 @@ CREATE TABLE StockMovement (
 
   FOREIGN KEY (productId) REFERENCES Product(id)
 );
+
+
+DROP PROC IF EXISTS sp_ProductSearch;
+GO
+
+CREATE PROC sp_ProductSearch 
+    @parametro VARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        p.id,
+        p.unitOfMeasureId,
+        p.code,
+        p.description,
+        um.description AS unitOfMeasure,
+        p.stock,
+        p.salePrice,
+        p.createdBy,
+        p.createdAt,
+        p.status
+    FROM Product p
+    INNER JOIN UnitOfMeasure um 
+        ON um.id = p.unitOfMeasureId
+    WHERE p.status = 1
+      AND (
+            p.code LIKE '%' + @parametro + '%'
+         OR p.description LIKE '%' + @parametro + '%'
+         OR um.description LIKE '%' + @parametro + '%'
+      )
+    ORDER BY p.description;
+END;
+GO
+
+use INVENTORYDB
+EXEC sp_ProductSearch 'cuaderno';
+---Custom
+DROP PROC IF EXISTS sp_CustomerSearch;
+GO
+
+CREATE PROC sp_CustomerSearch
+    @parametro VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        c.id,
+        c.fullName,
+        c.document,
+        c.createdBy,
+        c.createdAt,
+        c.status
+    FROM Customer c
+    WHERE c.status = 1
+      AND (
+            c.fullName LIKE '%' + @parametro + '%'
+         OR c.document LIKE '%' + @parametro + '%'
+      )
+    ORDER BY c.fullName;
+END;
+GO
+select * from Customer
+exec sp_CustomerSearch 'ci003'
+
+--supplier
+DROP PROC IF EXISTS sp_SupplierSearch;
+GO
+
+CREATE PROC sp_SupplierSearch
+    @parametro VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        s.id,
+        s.nit,
+        s.businessName,
+        s.address,
+        s.phone,
+        s.representative,
+        s.createdBy,
+        s.createdAt,
+        s.status
+    FROM Supplier s
+    WHERE s.status = 1
+      AND (
+            s.businessName LIKE '%' + @parametro + '%'
+         OR CAST(s.nit AS VARCHAR) LIKE '%' + @parametro + '%'
+         OR s.representative LIKE '%' + @parametro + '%'
+      )
+    ORDER BY s.businessName;
+END;
+GO
+
+--USER ACCOUNT
+DROP PROC IF EXISTS sp_UserAccountSearch;
+GO
+
+CREATE PROC sp_UserAccountSearch
+    @parametro VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        u.id,
+        u.username,
+        e.firstName + ' ' + e.lastName AS fullName,
+        e.identityCard,
+        u.status,
+        u.createdAt
+    FROM UserAccount u
+    INNER JOIN Employee e 
+        ON e.id = u.employeeId
+    WHERE u.status = 1
+      AND (
+            u.username LIKE '%' + @parametro + '%'
+         OR e.firstName LIKE '%' + @parametro + '%'
+         OR e.lastName LIKE '%' + @parametro + '%'
+         OR e.identityCard LIKE '%' + @parametro + '%'
+      )
+    ORDER BY u.username;
+END;
+GO

@@ -309,16 +309,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="sp_CustomerSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="parametro" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="sp_ProductSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="parametro" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="sp_SupplierSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="parametro" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="sp_UserAccountSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parametro" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="INVENTORYDBModelStoreContainer">
@@ -986,45 +977,6 @@
                 <ScalarProperty Name="createdBy" ColumnName="createdBy" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
                 <ScalarProperty Name="status" ColumnName="status" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_CustomerSearch" FunctionName="INVENTORYDBModel.Store.sp_CustomerSearch">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="INVENTORYDBModel.sp_CustomerSearch_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="fullName" ColumnName="fullName" />
-                <ScalarProperty Name="document" ColumnName="document" />
-                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
-                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-                <ScalarProperty Name="status" ColumnName="status" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_SupplierSearch" FunctionName="INVENTORYDBModel.Store.sp_SupplierSearch">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="INVENTORYDBModel.sp_SupplierSearch_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nit" ColumnName="nit" />
-                <ScalarProperty Name="businessName" ColumnName="businessName" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="representative" ColumnName="representative" />
-                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
-                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-                <ScalarProperty Name="status" ColumnName="status" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_UserAccountSearch" FunctionName="INVENTORYDBModel.Store.sp_UserAccountSearch">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="INVENTORYDBModel.sp_UserAccountSearch_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="fullName" ColumnName="fullName" />
-                <ScalarProperty Name="identityCard" ColumnName="identityCard" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
