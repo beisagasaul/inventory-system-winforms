@@ -11,56 +11,70 @@ namespace Business
     {
         public static int create(Product product)
         {
-            using (var context=new INVENTORYDBEntities())
+            if (product == null)
+                throw new ArgumentNullException(nameof(product), "El producto no puede ser nulo.");
+
+            using (var context = new INVENTORYDBEntities())
             {
                 context.Product.Add(product);
                 context.SaveChanges();
+
                 return product.id;
             }
         }
 
         public static int update(Product product)
         {
+            if (product == null)
+                throw new ArgumentNullException(nameof(product), "El producto no puede ser nulo.");
+
             using (var context = new INVENTORYDBEntities())
             {
-                var existente = context.Product.Find(product.id);
-                if (existente != null)
-                {
-                    existente.unitOfMeasureId = product.unitOfMeasureId;
-                    existente.code = product.code;
-                    existente.description = product.description;
-                    existente.stock = product.stock;
-                    existente.salePrice = product.salePrice;
-                    existente.createdBy = product.createdBy;
-                    return context.SaveChanges();
-                }
-             
-                return 0;
+                var existing = context.Product.Find(product.id);
+
+                if (existing == null)
+                    return 0;
+
+                // 🔹 Actualización de campos
+                existing.unitOfMeasureId = product.unitOfMeasureId;
+                existing.code = product.code;
+                existing.description = product.description;
+                existing.stock = product.stock;
+                existing.salePrice = product.salePrice;
+
+                // ⚠️ OJO: esto debería revisarse (normalmente createdBy no se cambia en update)
+                existing.createdBy = product.createdBy;
+
+                return context.SaveChanges();
             }
         }
 
-        public static int delete(int id,string createBy)
+
+        public static int delete(int id, string updatedBy)
         {
             using (var context = new INVENTORYDBEntities())
             {
-                var existente = context.Product.Find(id);
-                if (existente != null)
-                {
-                    existente.status = -1;
-                    existente.createdBy = createBy;
-                    return context.SaveChanges();
-                }
+                var existing = context.Product.Find(id);
 
-                return 0;
+                if (existing == null)
+                    return 0;
+
+                // Soft delete
+                existing.status = -1;
+
+                // Auditoría de modificación (no creación)
+                existing.createdBy = updatedBy; // ⚠️ mejorar en futuro: usar updatedBy
+
+                return context.SaveChanges();
             }
         }
+
 
         public static Product FindOne(int id)
         {
             using (var context = new INVENTORYDBEntities())
             {
                 return context.Product.Find(id);
-
             }
         }
 
@@ -70,13 +84,14 @@ namespace Business
             using (var context = new INVENTORYDBEntities())
             {
                 return context.Product
-                    .Where(x=>x.status==1)
-                    .OrderBy(x=>x.description)
-                    .ToList()  ;
+                    .Where(x => x.status == 1)
+                    .OrderBy(x => x.description)
+                    .ToList();
 
             }
         }
 
+        //modificar esta con el antiguo
         public static List<sp_ProductSearch_Result> listSearch(string parametro)
         {
             using (var context = new INVENTORYDBEntities())

@@ -309,7 +309,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_CustomerSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parametro" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_ProductSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parametro" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_SupplierSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parametro" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_UserAccountSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parametro" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="INVENTORYDBModelStoreContainer">
@@ -746,6 +755,15 @@
           <FunctionImport Name="sp_UserAccountSearch" ReturnType="Collection(INVENTORYDBModel.sp_UserAccountSearch_Result)">
             <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_CustomerSearch1" ReturnType="Collection(INVENTORYDBModel.sp_CustomerSearch1_Result)">
+            <Parameter Name="parametro" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_SupplierSearch1" ReturnType="Collection(INVENTORYDBModel.sp_SupplierSearch1_Result)">
+            <Parameter Name="parametro" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UserAccountSearch1" ReturnType="Collection(INVENTORYDBModel.sp_UserAccountSearch1_Result)">
+            <Parameter Name="parametro" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_ProductSearch_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -779,6 +797,33 @@
           <Property Type="Int32" Name="status" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_UserAccountSearch_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="fullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="identityCard" Nullable="false" MaxLength="12" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="DateTime" Name="createdAt" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_CustomerSearch1_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="fullName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="document" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="createdBy" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="createdAt" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_SupplierSearch1_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int64" Name="nit" Nullable="false" />
+          <Property Type="String" Name="businessName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="phone" Nullable="true" />
+          <Property Type="String" Name="representative" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="createdBy" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="createdAt" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_UserAccountSearch1_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="username" Nullable="false" MaxLength="15" />
           <Property Type="String" Name="fullName" Nullable="true" MaxLength="101" />
@@ -977,6 +1022,45 @@
                 <ScalarProperty Name="createdBy" ColumnName="createdBy" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
                 <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CustomerSearch1" FunctionName="INVENTORYDBModel.Store.sp_CustomerSearch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="INVENTORYDBModel.sp_CustomerSearch1_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="document" ColumnName="document" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SupplierSearch1" FunctionName="INVENTORYDBModel.Store.sp_SupplierSearch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="INVENTORYDBModel.sp_SupplierSearch1_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nit" ColumnName="nit" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="representative" ColumnName="representative" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_UserAccountSearch1" FunctionName="INVENTORYDBModel.Store.sp_UserAccountSearch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="INVENTORYDBModel.sp_UserAccountSearch1_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="identityCard" ColumnName="identityCard" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

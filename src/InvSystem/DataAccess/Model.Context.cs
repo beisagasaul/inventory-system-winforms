@@ -49,9 +49,58 @@ namespace DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ProductSearch_Result>("sp_ProductSearch", parametroParameter);
         }
     
+        public virtual ObjectResult<sp_CustomerSearch_Result> sp_CustomerSearch(string parametro)
+        {
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
     
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CustomerSearch_Result>("sp_CustomerSearch", parametroParameter);
+        }
     
+        public virtual ObjectResult<sp_SupplierSearch_Result> sp_SupplierSearch(string parametro)
+        {
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
     
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SupplierSearch_Result>("sp_SupplierSearch", parametroParameter);
+        }
     
+        public virtual ObjectResult<sp_UserAccountSearch_Result> sp_UserAccountSearch(string parametro)
+        {
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_UserAccountSearch_Result>("sp_UserAccountSearch", parametroParameter);
+        }
+    
+        public virtual ObjectResult<sp_CustomerSearch_Result> sp_CustomerSearch1(string parametro)
+        {
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CustomerSearch_Result>("sp_CustomerSearch", parametroParameter);
+        }
+    
+        public virtual ObjectResult<sp_SupplierSearch_Result> sp_SupplierSearch1(string parametro)
+        {
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SupplierSearch_Result>("sp_SupplierSearch", parametroParameter);
+        }
+    
+        public virtual ObjectResult<sp_UserAccountSearch_Result> sp_UserAccountSearch1(string parametro)
+        {
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_UserAccountSearch_Result>("sp_UserAccountSearch", parametroParameter);
+        }
     }
 }

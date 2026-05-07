@@ -20,7 +20,7 @@ namespace UI
 
         private void FormProduct_Load(object sender, EventArgs e)
         {
-            dgvList.DataSource = ProductB.listSearch(" ");
+            dgvList.DataSource = ProductB.listSearch("");
         }
     }
 }
